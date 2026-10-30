@@ -49,12 +49,18 @@ const sounds = [
     ]
   }
 ];
+const witchSounds = [
+  'freesound_community-witch-laugh-95203.mp3',
+  'dragon-studio-witch-laugh-401713.mp3',
+  'universfield-evil-witch-laugh-140135.mp3'
+];
 const status=document.querySelector('#status'),volume=document.querySelector('#volume'),buttons=document.querySelector('#buttons');
 let active=null,lastFile=null;
 function stop(){if(active){active.pause();active.currentTime=0;active=null;}status.textContent='停止しました';}
 function pick(arr){const choices=arr.length>1?arr.filter(x=>x!==lastFile):arr;return choices[Math.floor(Math.random()*choices.length)];}
 function play(s){stop();const file=pick(s.files);lastFile=file;const a=new Audio('sounds/'+encodeURIComponent(file));active=a;a.volume=Number(volume.value)/100;status.textContent=s.emoji+' '+s.label;a.onended=()=>{if(active===a){active=null;status.textContent='次の鳴き声をどうぞ 🐾';}};a.onerror=()=>{status.textContent='音声を読み込めません。soundsフォルダとファイルを確認してください。';};a.play().catch(e=>{status.textContent='再生できません: '+e.message;});}
 sounds.forEach(s=>{const b=document.createElement('button');b.className='sound';const icon=document.createElement('span');icon.setAttribute('aria-hidden','true');icon.textContent=s.emoji;const title=document.createElement('strong');title.textContent=s.label;b.append(icon,title);b.addEventListener('click',()=>play(s));buttons.appendChild(b);});
+document.querySelector('#witch').addEventListener('click',()=>play({emoji:'🧙‍♀️',label:'魔女の笑い声',files:witchSounds}));
 document.querySelector('#random').addEventListener('click',()=>{const s=sounds[Math.floor(Math.random()*sounds.length)];play(s);});
 document.querySelector('#stop').addEventListener('click',stop);
 volume.addEventListener('input',()=>{document.querySelector('#volumeValue').textContent=volume.value+'%';if(active)active.volume=Number(volume.value)/100;});
