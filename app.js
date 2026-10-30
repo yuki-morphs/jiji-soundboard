@@ -1,0 +1,6 @@
+const sounds=[['🐱','ニャー！','cat1.wav'],['😻','甘えたニャ〜','cat2.wav'],['🐾','子猫のミャッ','cat3.wav'],['🌙','夜のニャオーン','cat4.wav'],['😾','強めのニャー','cat5.wav'],['🎃','ジジのおしゃべり','cat6.wav']];
+const status=document.querySelector('#status'),volume=document.querySelector('#volume'),buttons=document.querySelector('#buttons');let active=null;
+function stop(){if(active){active.pause();active.currentTime=0;active=null;}status.textContent='停止しました';}
+function play(s){stop();const a=new Audio('sounds/'+s[2]);active=a;a.volume=Number(volume.value)/100;status.textContent=s[0]+' '+s[1];a.onended=()=>{if(active===a){active=null;status.textContent='次の鳴き声をどうぞ 🐾'}};a.onerror=()=>status.textContent='音声の読み込みに失敗しました。ZIPをすべて展開してください';a.play().catch(e=>{status.textContent='再生できません: '+e.message;});}
+sounds.forEach(s=>{const b=document.createElement('button');b.className='sound';b.innerHTML=`<span aria-hidden="true">${s[0]}</span><strong>${s[1]}</strong>`;b.addEventListener('click',()=>play(s));buttons.appendChild(b)});
+document.querySelector('#random').addEventListener('click',()=>play(sounds[Math.floor(Math.random()*sounds.length)]));document.querySelector('#stop').addEventListener('click',stop);volume.addEventListener('input',()=>{document.querySelector('#volumeValue').textContent=volume.value+'%';if(active)active.volume=Number(volume.value)/100;});
