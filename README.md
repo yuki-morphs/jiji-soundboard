@@ -1,14 +1,14 @@
-# Jiji Soundboard — Witch Edition
+# Jiji Soundboard — 分類別ボタン版
 
-Includes the previous 13 normalized cat sounds plus three newly normalized witch laughs. Witch button selects a random witch recording; existing Random button selects a cat sound as before. Witch tracks are normalized with FFmpeg loudnorm (-18 LUFS, -2 dBTP target); perceptual differences may remain.
+GitHub Pages用の静的Webアプリです。`index.html`、`app.js`、`style.css`、`sounds/`、`.nojekyll` をリポジトリ直下に配置してください。
 
-## GitHub Pages
-Copy the **contents** of this folder into the root of your existing `jiji-soundboard` repository, replacing existing files. Commit and push. GitHub Pages will redeploy automatically.
+## ボタンと音源
+- おこっている (2): angry-wild-cat-roar, domestic-cat-hungry-meow
+- 子猫 (2): cartoon-kitty-begging-meow, sweet-kitty-meow
+- 普通 (3): angry-cartoon-kitty-meow, cartoon-little-cat-meow, little-cat-pain-meow
+- 猛獣 (2): big-wild-cat-scary-roar, wild-lion-animal-roar
+- 魔女 (3): dragon-studio, freesound_community, universfield
 
-```sh
-git add -A
-git commit -m "Add normalized random witch laughs"
-git push
-```
+各ボタンはその分類内からランダム再生します。全体の「ランダム」は5分類からランダムに選びます（分類ごとの確率は均等）。停止・音量調整は従来どおりです。
 
-Audio files are stored locally in `sounds/`. Review the license/attribution requirements of the three supplied witch recordings before publishing publicly.
+音源は前バージョンの音量調整済みファイルを使用。未使用の4音源は配布ZIPから除外しました。音源の利用ライセンスは公開前に確認してください。
